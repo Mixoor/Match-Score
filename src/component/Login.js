@@ -14,6 +14,7 @@ import {
 } from "react-native";
 import { scale, verticalScale } from "../util/scaler";
 const { width } = Dimensions.get("screen");
+
 export default class Login extends Component {
   state = {
     loading: false,

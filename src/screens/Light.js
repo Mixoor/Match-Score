@@ -1,55 +1,22 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { StyleSheet, View, ActivityIndicator } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
-import ScoreBoard from "../component/ScoreBoard";
 import Login from "../component/Login";
 import Transition from "../component/Transition";
 import System from "../component/System";
 
-const email = "test";
-const password = "test";
+import { checkStorage, login, logout } from "../actions/LoginAction";
+import { connect } from "react-redux";
 
-export default class Light extends Component {
+class Light extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      loading: true,
-      email: "",
-      password: "",
       logged: false,
-      error: ""
+      email: "",
+      password: ""
     };
-    this.getState();
-  }
-
-  async getState() {
-    await AsyncStorage.getItem("@MS_state").then(data => {
-      let s = JSON.parse(data);
-      if (s !== null) {
-        this.setState({
-          ...s,
-          loading: false
-        });
-      } else {
-        this.setState({ loading: false });
-      }
-    });
-  }
-  logout() {
-    this.setState(
-      {
-        email: "",
-        password: "",
-        logged: false,
-        error: ""
-      },
-      () => AsyncStorage.removeItem("@MS_state")
-    );
-  }
-
-  saveAsync() {
-    AsyncStorage.setItem("@MS_state", JSON.stringify(this.state));
   }
 
   setEmail(text) {
@@ -59,15 +26,20 @@ export default class Light extends Component {
     this.setState({ password: text });
   }
 
-  check() {
-    if (this.state.email === email && this.state.password === password) {
-      this.setState({ logged: true, error: "" }, () => this.saveAsync());
-    } else {
-      this.setState({ logged: false, error: "Authenfication erroné" });
+  async check() {
+    const { password, email } = this.state;
+    await this.props.login(email, password);
+    if (this.props.logged === true) {
+      this.setState({ password: "", email: "" });
     }
   }
+
+  componentDidMount() {
+    this.props.checkStorage();
+  }
+
   render() {
-    const { logged, error, loading } = this.state;
+    const { logged, error, loading } = this.props;
     return (
       <View style={styles.container}>
         {loading ? (
@@ -91,7 +63,7 @@ export default class Light extends Component {
               password={this.state.password}
               check={() => this.check()}
             />
-            <System {...this.props} logout={() => this.logout()} />
+            <System {...this.props} logout={() => this.props.logout()} />
           </Transition>
         )}
       </View>
@@ -105,3 +77,20 @@ const styles = StyleSheet.create({
     backgroundColor: "#333"
   }
 });
+
+const mapStateToProps = state => {
+  return { ...state.login };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    checkStorage: () => dispatch(checkStorage()),
+    login: (email, password) => dispatch(login(email, password)),
+    logout: () => dispatch(logout())
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Light);

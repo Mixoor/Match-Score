@@ -17,7 +17,9 @@ export default class Transition extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.logged !== this.props.logged) this.animate();
+    if (prevProps.logged !== this.props.logged) {
+      this.animate();
+    }
   }
   animate() {
     if (this.props.logged) {
@@ -25,6 +27,7 @@ export default class Transition extends Component {
 
       Animated.timing(this.state.y, {
         toValue: 0,
+        duration: 0,
         useNativeDriver: true
       }).start();
     } else {
@@ -32,9 +35,16 @@ export default class Transition extends Component {
 
       Animated.timing(this.state.x, {
         toValue: 0,
+        duration: 0,
         useNativeDriver: true
       }).start();
     }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.logged === nextProps.logged) return false;
+
+    return true;
   }
 
   render() {

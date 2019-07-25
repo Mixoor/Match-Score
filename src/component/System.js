@@ -7,8 +7,6 @@ import {
   Dimensions,
   StatusBar,
   Animated,
-  Easing,
-  Linking,
   Image
 } from "react-native";
 import { scale, verticalScale } from "../util/scaler";
@@ -84,12 +82,15 @@ export default class System extends Component {
         <View style={[styles.card, { backgroundColor: "white" }]}>
           <Text
             style={{
-              padding: scale(18),
-              fontSize: scale(20),
-              color: "#222"
+              paddingVertical: scale(25),
+              paddingHorizontal: scale(8),
+              fontSize: scale(21),
+              color: "#111",
+              textAlign: "center",
+              lineHeight: scale(28)
             }}
           >
-            MatchScore est disponible en deux versions légere et temps réel
+            Match Score est disponible en deux versions légere et temps réel
           </Text>
           <TouchableOpacity
             onPress={() => this.toggleHidden(false)}

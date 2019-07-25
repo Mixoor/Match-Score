@@ -13,6 +13,8 @@ import {
   StatusBar
 } from "react-native";
 import { moderateScale, scale, verticalScale } from "../util/scaler";
+import { connect } from "react-redux";
+import { updateScore, resetScore } from "../actions/ScoreAction";
 import Team from "./Team";
 
 /**
@@ -21,32 +23,29 @@ import Team from "./Team";
  */
 const code = "ABCD";
 const { width, height } = Dimensions.get("screen");
-export default class ScoreBoard extends Component {
+class ScoreBoard extends Component {
   state = {
-    score: [0, 0],
     time:
       this.checkTime(new Date().getHours()) +
       ":" +
       this.checkTime(new Date().getMinutes()),
-    teamName: ["Equipe A", "Equipe B"],
     model: false,
-    error: null,
     text: ""
   };
 
   progress = null;
 
-  onAdd(id) {
-    let score = [...this.state.score];
+  async onAdd(id) {
+    let score = [...this.props.score];
     score[id] = ++score[id];
-    this.setState({ score: score });
+    await this.props.updateScore(score);
   }
 
-  onSub(id) {
-    let score = [...this.state.score];
+  async onSub(id) {
+    let score = [...this.props.score];
     if (score[id] > 0) {
       score[id] = --score[id];
-      this.setState({ score: score });
+      await this.props.updateScore(score);
     }
   }
 
@@ -103,9 +102,9 @@ export default class ScoreBoard extends Component {
                     paddingVertical: moderateScale(18)
                   }}
                 >
-                  {this.state.error !== null ? (
+                  {this.props.error !== null ? (
                     <Text style={[style.error, { fontFamily: "Changa" }]}>
-                      {this.state.error}
+                      {this.props.error}
                     </Text>
                   ) : null}
                   <Text style={style.small}>Code:</Text>
@@ -146,9 +145,10 @@ export default class ScoreBoard extends Component {
                     <Text style={[style.modelText]}>Annuler</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    onPress={() => {
-                      if (this.state.text === code) this.reset();
-                      else this.setState({ error: "Code est invalide " });
+                    onPress={async () => {
+                      await this.props.resetScore(this.state.text);
+                      if (this.props.error === null)
+                        this.setState({ model: false });
                     }}
                   >
                     <Text style={[style.modelText, { color: "#5994D9" }]}>
@@ -183,6 +183,7 @@ export default class ScoreBoard extends Component {
   }
 
   render() {
+    const { teamName, score } = this.props;
     return (
       <KeyboardAvoidingView style={style.card} enabled={false}>
         <StatusBar backgroundColor="#222" />
@@ -240,8 +241,8 @@ export default class ScoreBoard extends Component {
         </View>
         <View style={style.board}>
           <Team
-            score={this.state.score[0]}
-            name={this.state.teamName[0]}
+            score={score[0]}
+            name={teamName[0]}
             onAdd={() => {
               this.onAdd(0);
             }}
@@ -265,7 +266,7 @@ export default class ScoreBoard extends Component {
                 alignItems: "center"
               }}
             >
-              <Text style={style.h1}>{this.state.score[0]}</Text>
+              <Text style={style.h1}>{score[0]}</Text>
               <Text
                 style={[
                   style.h1,
@@ -277,7 +278,7 @@ export default class ScoreBoard extends Component {
               >
                 -
               </Text>
-              <Text style={style.h1}>{this.state.score[1]}</Text>
+              <Text style={style.h1}>{score[1]}</Text>
             </View>
           </View>
 
@@ -288,14 +289,30 @@ export default class ScoreBoard extends Component {
             onSub={() => {
               this.onSub(1);
             }}
-            score={this.state.score[1]}
-            name={this.state.teamName[1]}
+            score={score[1]}
+            name={teamName[1]}
           />
         </View>
       </KeyboardAvoidingView>
     );
   }
 }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    updateScore: score => dispatch(updateScore(score)),
+    resetScore: code => dispatch(resetScore(code))
+  };
+};
+
+const mapStateToProps = state => {
+  return { ...state.score };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ScoreBoard);
 
 const style = StyleSheet.create({
   center: {
