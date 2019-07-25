@@ -101,7 +101,7 @@ export default class Login extends Component {
                       ? styles.error
                       : null
                   ]}
-                  value={this.props.value}
+                  value={this.props.email}
                   placeholderTextColor="#bbbbbb99"
                   placeholder="Exemple@exemple.com"
                   keyboardType="email-address"
@@ -150,7 +150,7 @@ export default class Login extends Component {
                   placeholderTextColor="#bbbbbb99"
                   secureTextEntry={true}
                   keyboardType="default"
-                  value={this.props.value}
+                  value={this.props.password}
                   onChangeText={text => this.props.setPassword(text)}
                 />
               </Animated.View>
@@ -196,15 +196,8 @@ export default class Login extends Component {
     );
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.props.error !== prevProps.error) {
-      const loading = this.props.error === "";
-      this.shake();
-      this.setState({ loading, focused: false });
-    } else if (this.props.error === prevProps.error && prevState.loading) {
-      this.shake();
-      this.setState({ loading: false, focused: false });
-    }
+  componentDidMount() {
+    if (this.props.error !== "") this.shake();
   }
 }
 

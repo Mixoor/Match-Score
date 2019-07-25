@@ -1,8 +1,6 @@
 import React, { PureComponent } from "react";
 import { StyleSheet, View, ActivityIndicator } from "react-native";
-import AsyncStorage from "@react-native-community/async-storage";
 import Login from "../component/Login";
-import Transition from "../component/Transition";
 import System from "../component/System";
 
 import { checkStorage, login, logout } from "../actions/LoginAction";
@@ -14,8 +12,8 @@ class Light extends PureComponent {
 
     this.state = {
       logged: false,
-      email: "",
-      password: ""
+      email: props.email,
+      password: props.password
     };
   }
 
@@ -52,19 +50,18 @@ class Light extends PureComponent {
           >
             <ActivityIndicator size={64} color="#9BC53D" />
           </View>
+        ) : !logged ? (
+          <Login
+            {...this.props}
+            error={error}
+            setEmail={text => this.setEmail(text)}
+            setPassword={text => this.setPassword(text)}
+            email={this.state.email}
+            password={this.state.password}
+            check={() => this.check()}
+          />
         ) : (
-          <Transition logged={logged}>
-            <Login
-              {...this.props}
-              error={error}
-              setEmail={text => this.setEmail(text)}
-              setPassword={text => this.setPassword(text)}
-              email={this.state.email}
-              password={this.state.password}
-              check={() => this.check()}
-            />
-            <System {...this.props} logout={() => this.props.logout()} />
-          </Transition>
+          <System {...this.props} logout={() => this.props.logout()} />
         )}
       </View>
     );

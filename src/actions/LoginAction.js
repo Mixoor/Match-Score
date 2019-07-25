@@ -20,9 +20,8 @@ export const login = (email, password) => {
     } else
       dispatch({
         type: actions.LOGIN_FAILED,
-        data: { error: "Authentification erroné" }
+        data: { password, email, error: "Authentification erroné" }
       });
-    dispatch({ type: actions.LOGIN_FAILED });
 
     dispatch({ type: actions.LOGIN_END });
   };
@@ -46,14 +45,14 @@ export const checkStorage = () => {
 };
 
 export const logout = () => {
-  return dispatch => {
+  return async dispatch => {
     dispatch({ type: actions.LOGOUT_START });
-    AsyncStorage.removeItem("@MS_state").then(() => {
+    await AsyncStorage.removeItem("@MS_state").then(() => {
       dispatch({
         type: actions.LOGOUT_SUCESS,
         data: {
-          email: "",
-          password: "",
+          email: null,
+          password: null,
           logged: false,
           error: ""
         }

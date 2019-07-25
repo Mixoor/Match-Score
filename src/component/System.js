@@ -69,7 +69,7 @@ export default class System extends Component {
             paddingVertical: scale(14),
             paddingHorizontal: scale(14)
           }}
-          onPress={() => this.props.logout()}
+          onPress={async () => await this.props.logout()}
         >
           <Image
             source={require("../assets/logout.png")}

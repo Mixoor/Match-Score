@@ -41,12 +41,6 @@ export default class Transition extends Component {
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (this.props.logged === nextProps.logged) return false;
-
-    return true;
-  }
-
   render() {
     return (
       <View style={{ ...styles.container }}>
