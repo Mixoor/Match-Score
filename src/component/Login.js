@@ -248,7 +248,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: scale(18),
     paddingVertical: verticalScale(14),
     //backgroundColor: "#9BC53D",
-    backgroundColor: "rgb(205,221,104)",
+    //backgroundColor: "rgb(205,221,104)",
+    backgroundColor: "#a3c500",
     borderRadius: scale(4),
     marginTop: verticalScale(18)
   },

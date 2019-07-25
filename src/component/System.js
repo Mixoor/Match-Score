@@ -97,7 +97,8 @@ export default class System extends Component {
               paddingHorizontal: scale(24),
               paddingVertical: scale(12),
               // backgroundColor: "#9bc53d",
-              backgroundColor: "rgb(205,221,104)",
+              //backgroundColor: "rgb(205,221,104)",
+              backgroundColor: "#a3c500",
 
               borderRadius: scale(100)
             }}
@@ -269,7 +270,7 @@ const styles = StyleSheet.create({
   },
   h1: {
     color: "white",
-    fontSize: scale(22),
-    fontWeight: "400"
+    fontSize: scale(20),
+    fontWeight: "500"
   }
 });
