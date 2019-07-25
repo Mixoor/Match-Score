@@ -15,6 +15,10 @@ import {
 import { moderateScale, scale, verticalScale } from "../util/scaler";
 import Team from "./Team";
 
+/**
+ * TODO
+ * Code
+ */
 const code = "ABCD";
 const { width, height } = Dimensions.get("screen");
 export default class ScoreBoard extends Component {

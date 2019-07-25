@@ -172,6 +172,12 @@ export default class Login extends Component {
                     this.setState({
                       loading: true
                     });
+                    {
+                      /**
+                       * TODO
+                       *  Switch with api call
+                       *  */
+                    }
                     setTimeout(() => this.props.check(), 500);
                   }}
                 >
