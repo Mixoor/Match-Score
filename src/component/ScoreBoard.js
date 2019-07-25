@@ -201,7 +201,7 @@ export default class ScoreBoard extends Component {
           </Text>
           <View
             style={{
-              backgroundColor: "rgba(0,0,0,0.2)",
+              backgroundColor: "rgba(0,0,0,0.1)",
               alignItems: "center",
               justifyContent: "space-around",
               padding: verticalScale(25)
@@ -302,7 +302,7 @@ const style = StyleSheet.create({
     flex: 1,
     fontFamily: "Changa",
     textAlign: "center",
-    fontSize: scale(180),
+    fontSize: scale(160),
     fontWeight: "900",
     color: "white",
     letterSpacing: 8
