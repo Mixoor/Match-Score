@@ -247,7 +247,8 @@ const styles = StyleSheet.create({
   btn: {
     paddingHorizontal: scale(18),
     paddingVertical: verticalScale(14),
-    backgroundColor: "#9BC53D",
+    //backgroundColor: "#9BC53D",
+    backgroundColor: "rgb(205,221,104)",
     borderRadius: scale(4),
     marginTop: verticalScale(18)
   },

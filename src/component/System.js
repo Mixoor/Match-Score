@@ -96,7 +96,9 @@ export default class System extends Component {
             style={{
               paddingHorizontal: scale(24),
               paddingVertical: scale(12),
-              backgroundColor: "#9bc53d",
+              // backgroundColor: "#9bc53d",
+              backgroundColor: "rgb(205,221,104)",
+
               borderRadius: scale(100)
             }}
           >
