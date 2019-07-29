@@ -192,7 +192,7 @@ class ScoreBoard extends Component {
         <View style={style.header}>
           <Text style={[style.center, { fontFamily: "Changa" }]}>
             <Image
-              source={require("../assets/sharp_timer_white_48.png")}
+              source={require("../assets/clock.png")}
               style={{
                 width: moderateScale(160),
                 height: moderateScale(160)
