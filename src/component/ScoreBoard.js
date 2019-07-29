@@ -17,11 +17,6 @@ import { connect } from "react-redux";
 import { updateScore, resetScore } from "../actions/ScoreAction";
 import Team from "./Team";
 
-/**
- * TODO
- * Code
- */
-const code = "ABCD";
 const { width, height } = Dimensions.get("screen");
 class ScoreBoard extends Component {
   state = {
