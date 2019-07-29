@@ -54,7 +54,8 @@ export default class System extends Component {
     });
     let offset = this.state.opacity.interpolate({
       inputRange: [0, 1],
-      outputRange: ["0%", "100%"]
+      outputRange: ["0%", "100%"],
+      extrapolate: "clamp"
     });
     return (
       <View style={[styles.container, { position: "relative" }]}>
@@ -83,14 +84,13 @@ export default class System extends Component {
           <Text
             style={{
               paddingVertical: scale(25),
-              paddingHorizontal: scale(8),
-              fontSize: scale(21),
+              fontSize: scale(22),
               color: "#111",
               textAlign: "center",
-              lineHeight: scale(28)
+              fontWeight: "200"
             }}
           >
-            Match Score est disponible en deux versions légere et temps réel
+            Match score est disponible en deux versions légere et temps réel
           </Text>
           <TouchableOpacity
             onPress={() => this.toggleHidden(false)}
@@ -114,7 +114,7 @@ export default class System extends Component {
               opacity: this.state.opacity,
 
               ...StyleSheet.absoluteFillObject,
-              top: this.state.hidden ? height : 0,
+              top: this.state.hidden ? height + 100 : 0,
               justifyContent: "center",
               alignItems: "center",
               flex: 1,
@@ -146,8 +146,8 @@ export default class System extends Component {
                   style={{
                     backgroundColor: "#e9e5dd",
                     borderRadius: scale(80),
-                    width: scale(100),
-                    height: verticalScale(100),
+                    width: scale(120),
+                    height: verticalScale(120),
                     justifyContent: "center",
                     alignItems: "center"
                   }}
@@ -185,7 +185,7 @@ export default class System extends Component {
               >
                 <View
                   style={{
-                    backgroundColor: "#e9e5dd",
+                    backgroundColor: "#921",
                     borderRadius: scale(80),
                     width: scale(80),
                     height: verticalScale(80),
@@ -218,8 +218,8 @@ export default class System extends Component {
                   style={{
                     backgroundColor: "#e9e5dd",
                     borderRadius: scale(80),
-                    width: scale(100),
-                    height: verticalScale(100),
+                    width: scale(120),
+                    height: verticalScale(120),
                     justifyContent: "center",
                     alignItems: "center"
                   }}
@@ -267,7 +267,10 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-around",
     alignItems: "center",
-    padding: scale(24)
+    paddingHorizontal: scale(24),
+    borderRadius: scale(4),
+    paddingBottom: scale(32),
+    paddingTop: scale(12)
   },
   h1: {
     color: "white",
