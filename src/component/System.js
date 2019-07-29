@@ -195,8 +195,8 @@ export default class System extends Component {
                 >
                   <Image
                     style={{
-                      width: scale(60),
-                      height: scale(60)
+                      width: scale(50),
+                      height: scale(50)
                     }}
                     source={require("../assets/delete.png")}
                   />
