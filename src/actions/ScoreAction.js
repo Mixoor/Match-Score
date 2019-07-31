@@ -13,7 +13,7 @@ export const updateScore = score => {
   };
 };
 
-// TODO ADD PAI FOR CHECKING CODE
+// TODO ADD API FOR CHECKING CODE
 export const resetScore = code => {
   return dispatch => {
     if (code === reset_code) dispatch({ type: actions.RESET_SCORE });
@@ -21,7 +21,7 @@ export const resetScore = code => {
       dispatch({
         type: actions.RESET_FAILED,
         data: {
-          error: "Votre Code est incorrect "
+          error: "Votre Code est incorrect"
         }
       });
   };
